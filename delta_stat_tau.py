@@ -22,15 +22,15 @@ ESS_Cm = np.random.normal(ESS_Cm_avg, sig_Cm, n_draws)
 #ESS_I = np.random.uniform(ESS_I_avg*1/2, ESS_I_avg*2, size = n_draws)
 #ESS_Cm = np.random.uniform(ESS_Cm_avg*1/2, ESS_Cm_avg*2, size = n_draws)
 
-# K values for uranium
+# K values for uranium. Actually, these values are probably wrong, so let's wait
+# until I have the good ones
 #     low   best   high
 #u235  1.2   1.4    2.0
 #u238  1.5   1.9    4.1
 
 # Define K array (min, best, max):
 k_I = np.array((1.6, 2.3, 5.7))
-#k_Cm = np.array((1.1, 1.2, 1.8)) # Old values
-k_Cm = np.array((1.2, 1.4, 2.0)) # New values
+k_Cm = np.array((1.2, 1.4, 2.0))
 
 # Parameters for deltas array
 delt0 = 70
