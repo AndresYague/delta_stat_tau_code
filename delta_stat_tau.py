@@ -71,7 +71,7 @@ def get_sept(deltas, pr, kk, tau, ESS, t_gal, ref = "stable"):
     return septime, plus_2_sig, minus_2_sig
 
 # Read input
-inpt_dict = read_input("input.example")
+inpt_dict = read_input("input.in")
 
 # Number of draws
 n_draws = inpt_dict["n_draws"]
@@ -99,7 +99,7 @@ for ni in range(n_isotopes):
         sig_tau_isot = inpt_dict["std" + string]
         tau_isot.append(np.random.normal(avg_tau_isot, sig_tau_isot,
                                         size = n_draws))
-    elif tau_monte_carlo==0:
+    elif tau_monte_carlo == 0:
         string = "_tau_{}".format(ni + 1)
         avg_tau_isot = inpt_dict["avg" + string]
         tau_isot.append(avg_tau_isot)
@@ -126,17 +126,26 @@ f.subplots_adjust(hspace = 0.)
 f.subplots_adjust(wspace = 0.)
 
 for pl in range(n_plots):
+    # Get the upper, middle, and lower K
+    kk = []
+    for nk in range(3):
+        kk.append(inpt_dict["kk_{}_{}".format(pl + 1, nk + 1)])
+    kk = np.array(kk)
+    
     # Calculate
     for ni in range(n_isotopes):
         pr_is = inpt_dict["pr_{}_{}".format(pl + 1, ni + 1)]
-        kk = inpt_dict["kk_{}_{}".format(pl + 1, ni + 1)]
         reference = inpt_dict["ref_{}".format(ni + 1)]
-        septime = get_sept(deltas, pr_is, kk, tau_isot[ni], ESS_isot[ni], t_gal)
-        label = inpt_dict["label_{}".format(ni + 1)]
+        
+        # T_iso values
+        upper = get_sept(deltas, pr_is, kk[0], tau_isot[ni], ESS_isot[ni], t_gal)
+        middle = get_sept(deltas, pr_is, kk[1], tau_isot[ni], ESS_isot[ni], t_gal)
+        lower = get_sept(deltas, pr_is, kk[2], tau_isot[ni], ESS_isot[ni], t_gal)
 
         # Plot
-        axarr[pl].fill_between(deltas, septime[1], septime[2], alpha = 0.5)
-        axarr[pl].plot(deltas, septime[0], linestyle = '--',label = "Using " + label)
+        label = inpt_dict["label_{}".format(ni + 1)]
+        axarr[pl].fill_between(deltas, upper[1], lower[2], alpha = 0.5)
+        axarr[pl].plot(deltas, middle[0], linestyle = '--',label = "Using " + label)
         axarr[pl].set_xlim(xlim)
         axarr[pl].set_ylim(ylim)
         axarr[pl].set_yticks(yticks)
