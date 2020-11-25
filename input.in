@@ -1,0 +1,54 @@
+# Monte Carlo input
+n_draws     1e6     # Total number of draws
+t_gal       8500    # Galaxy age in Myr
+delt0       30      # Starting value of delta in Myr
+deltlast    100     # Final value of delta in Myr
+step	    2       # Step of the delta calculation in Myr
+tau_monte   1       #Shuold we use Monte Carlo at all? Suppurted: 1 , 0 (1 means yes, 0 means no)
+
+# ---------------------------------------
+
+# Isotopes input
+n_isotopes   2      # How many isotopes to plot
+
+# Isotope-1 values
+avg_ESS_1   6.6e-5  # ESS average
+std_ESS_1   0.2e-5  # Standard deviation
+avg_tau_1   9.4     # Average of tau in Myr
+std_tau_1   0.4324     # Standard deviation of tau in Myr
+ref_1       stable  # Reference isotope. Supported: stable, u235
+label_1     $^{107}$Pd/$^{108}$Pd  # Label for plot line
+
+# Isotope-2 values
+avg_ESS_2   1.02e-4	# Hf ESS average
+std_ESS_2   0.02e-4 	# Hf standard deviation
+avg_tau_2   12.8    	# Average of tau in Myr
+std_tau_2   0.128  	# Standard deviation of tau in Myr
+ref_2       stable  # Reference isotope. Supported: stable, u235
+label_2     $^{182}$Hf/$^{180}$Hf  # Label for plot line
+
+# ---------------------------------------
+
+# Plots input
+n_plots     3          # How many plots to make
+font_size   16.5         # Font size
+xlabel      Recurrence time between $s$-process events [Myr]
+ylabel      Time $\Delta t_\mathrm{LE}$ since the last $s$-process event [Myr]
+
+# Plot-1 values
+kk_1          5.7     # Value of GCE K
+pr_1_1        0.14    # Production value for first isotope
+pr_1_2        0.07    # Production value for second isotope
+label_ann_1   K=5.7  M=2.1 M$_\odot$  Z=0.007 # Annotation in panel
+
+# Plot-2 values
+kk_2          1.6     # Value of GCE K
+pr_2_1        0.14    # Production value for first isotope
+pr_2_2        0.12    # Production value for second isotope
+label_ann_2   K=1.6  M=3.0 M$_\odot$  Z=0.014 # Annotation in panel
+
+# Plot-3 values
+kk_3          2.3     # Value of GCE K
+pr_3_1        0.13    # Production value for first isotope
+pr_3_2        0.08    # Production value for second isotope
+label_ann_3   K=2.3  M=3.5 M$_\odot$  Z=0.03 # Annotation in panel
