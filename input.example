@@ -1,3 +1,6 @@
+# Example of input.in
+# ==========================================
+ 
 # Monte Carlo input
 n_draws     1e6     # Total number of draws
 t_gal       8500    # Galaxy age in Myr
