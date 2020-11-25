@@ -71,7 +71,7 @@ def get_sept(deltas, pr, kk, tau, ESS, t_gal, ref = "stable"):
     return septime, plus_2_sig, minus_2_sig
 
 # Read input
-inpt_dict = read_input("input.in")
+inpt_dict = read_input("input.example")
 
 # Number of draws
 n_draws = inpt_dict["n_draws"]
@@ -127,9 +127,9 @@ f.subplots_adjust(wspace = 0.)
 
 for pl in range(n_plots):
     # Calculate
-    kk = inpt_dict["kk_{}".format(pl + 1)]
     for ni in range(n_isotopes):
         pr_is = inpt_dict["pr_{}_{}".format(pl + 1, ni + 1)]
+        kk = inpt_dict["kk_{}_{}".format(pl + 1, ni + 1)]
         reference = inpt_dict["ref_{}".format(ni + 1)]
         septime = get_sept(deltas, pr_is, kk, tau_isot[ni], ESS_isot[ni], t_gal)
         label = inpt_dict["label_{}".format(ni + 1)]
