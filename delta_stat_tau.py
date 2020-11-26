@@ -81,7 +81,7 @@ t_gal = inpt_dict["t_gal"]
 
 n_isotopes = inpt_dict["n_isotopes"]
 
-tau_monte_carlo=inpt_dict["tau_monte"]
+tau_monte_carlo = inpt_dict["tau_monte"]
 
 ESS_isot = []; tau_isot = []
 for ni in range(n_isotopes):
@@ -114,7 +114,7 @@ deltas = np.arange(delt0, deltlast + 1, step)
 
 # Plot input
 xlim = [deltas[0], deltas[-1]]
-ylim = [15, 71]; step = 10
+ylim = [100, 230]; step = 20
 yticks = np.arange(ylim[0], ylim[1], step)
 yticks = [x for x in yticks]
 
@@ -126,21 +126,25 @@ f.subplots_adjust(hspace = 0.)
 f.subplots_adjust(wspace = 0.)
 
 for pl in range(n_plots):
-    # Get the upper, middle, and lower K
-    kk = []
-    for nk in range(3):
-        kk.append(inpt_dict["kk_{}_{}".format(pl + 1, nk + 1)])
-    kk = np.array(kk)
     
     # Calculate
     for ni in range(n_isotopes):
         pr_is = inpt_dict["pr_{}_{}".format(pl + 1, ni + 1)]
         reference = inpt_dict["ref_{}".format(ni + 1)]
         
+        # Get the upper, middle, and lower K for this isotope
+        kk = []
+        for nk in range(3):
+            kk.append(inpt_dict["kk_{}_{}_{}".format(pl + 1, nk + 1, ni + 1)])
+        kk = np.array(kk)
+        
         # T_iso values
-        upper = get_sept(deltas, pr_is, kk[0], tau_isot[ni], ESS_isot[ni], t_gal)
-        middle = get_sept(deltas, pr_is, kk[1], tau_isot[ni], ESS_isot[ni], t_gal)
-        lower = get_sept(deltas, pr_is, kk[2], tau_isot[ni], ESS_isot[ni], t_gal)
+        upper = get_sept(deltas, pr_is, kk[0], tau_isot[ni], ESS_isot[ni],
+                         t_gal, ref = reference)
+        middle = get_sept(deltas, pr_is, kk[1], tau_isot[ni], ESS_isot[ni],
+                          t_gal, ref = reference)
+        lower = get_sept(deltas, pr_is, kk[2], tau_isot[ni], ESS_isot[ni],
+                         t_gal, ref = reference)
 
         # Plot
         label = inpt_dict["label_{}".format(ni + 1)]
