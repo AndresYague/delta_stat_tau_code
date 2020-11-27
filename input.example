@@ -19,15 +19,15 @@ avg_ESS_1   6.6e-5  # ESS average
 std_ESS_1   0.2e-5  # Standard deviation
 avg_tau_1   9.4     # Average of tau in Myr
 std_tau_1   0.4324  # Standard deviation of tau in Myr
-ref_1       stable  # Reference isotope. Supported: stable, u235
+ref_1       stable  # Reference isotope. Supported: stable or a numerical mean life
 label_1     $^{107}$Pd/$^{108}$Pd  # Label for plot line
 
 # Isotope-2 values
-avg_ESS_2   1.02e-4 # Hf ESS average
-std_ESS_2   0.02e-4 # Hf standard deviation
+avg_ESS_2   1.02e-4 # ESS average
+std_ESS_2   0.02e-4 # Standard deviation
 avg_tau_2   12.8    # Average of tau in Myr
 std_tau_2   0.128   # Standard deviation of tau in Myr
-ref_2       stable  # Reference isotope. Supported: stable, u235
+ref_2       stable  # Reference isotope. Supported: stable or a numerical mean life
 label_2     $^{182}$Hf/$^{180}$Hf  # Label for plot line
 
 # ---------------------------------------
@@ -45,7 +45,7 @@ kk_1_2_1      5.7     # Middle value of GCE K
 kk_1_3_1      5.7     # Lower value of GCE K
 
 pr_1_2        0.07    # Production value for second isotope
-kk_1_1_2      5.7     # Upper value of GCE K.
+kk_1_1_2      5.7     # Upper value of GCE K
 kk_1_2_2      5.7     # Middle value of GCE K
 kk_1_3_2      5.7     # Lower value of GCE K
 

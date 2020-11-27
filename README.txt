@@ -18,8 +18,8 @@ n_draws     1e6     # Total number of draws
 t_gal       8500    # Galaxy age in Myr
 delt0       70      # Starting value of delta in Myr
 deltlast    930     # Final value of delta in Myr
-step        2       # Step of the delta calculation in Myr
-tau_monte   0       # Should we use Monte Carlo at all? Supported: 1 (on), 0 (off)
+step        10      # Step of the delta calculation in Myr
+tau_monte   1       # Should we use Monte Carlo at all? Supported: 1 (on), 0 (off)
 
 # ---------------------------------------
 
@@ -28,25 +28,25 @@ n_isotopes   2      # How many isotopes to plot
 
 # Isotope-1 values
 avg_ESS_1   1.28e-4 # ESS average
-std_ESS_1   1.50e-6 # Standard deviation
+std_ESS_1   3.00e-6 # Standard deviation
 avg_tau_1   22.6    # Average of tau in Myr
-std_tau_1   0       # Standard deviation of tau in Myr
-ref_1       stable  # Reference isotope. Supported: stable, u235
+std_tau_1   2.0     # Standard deviation of tau in Myr
+ref_1       stable  # Reference isotope. Supported: stable or a numerical mean life
 label_1     Using $^{129}$I/$^{127}$I  # Label for plot line
 
 # Isotope-2 values
-avg_ESS_2   5.6e-5  # Hf ESS average
-std_ESS_2   1.5e-6  # Hf standard deviation
+avg_ESS_2   5.6e-5  # ESS average
+std_ESS_2   3.0e-6  # Standard deviation
 avg_tau_2   22.5    # Average of tau in Myr
-std_tau_2   0       # Standard deviation of tau in Myr
-ref_2       u235    # Reference isotope. Supported: stable, u235
+std_tau_2   2.2     # Standard deviation of tau in Myr
+ref_2       1009    # Reference isotope. Supported: stable or a numerical mean life
 label_2     Using $^{247}$Cm/$^{235}$U  # Label for plot line
 
 # ---------------------------------------
 
 # Plots input
 n_plots     3         # How many plots to make
-font_size   16.5      # Font size
+font_size   14        # Font size
 xlabel      Recurrence time between $r$-process events [Myr]
 ylabel      Time since the last $r$-process event [Myr]
 
@@ -57,34 +57,34 @@ kk_1_2_1      2.3     # Middle value of GCE K
 kk_1_3_1      1.6     # Lower value of GCE K
 
 pr_1_2        0.1544  # Production value for second isotope
-kk_1_1_2      2.0     # Upper value of GCE K.
-kk_1_2_2      1.4     # Middle value of GCE K
-kk_1_3_2      1.2     # Lower value of GCE K
+kk_1_1_2      1.8     # Upper value of GCE K
+kk_1_2_2      1.2     # Middle value of GCE K
+kk_1_3_2      1.1     # Lower value of GCE K
 
 label_ann_1   Dyn. NSNS (B) (DZ10 + ABLA07)  # Annotation in panel
 
 # Plot-2 values
 pr_2_1        2.4834  # Production value for first isotope
-kk_2_1_1      5.7     # Upper value of GCE K.
+kk_2_1_1      5.7     # Upper value of GCE K
 kk_2_2_1      2.3     # Middle value of GCE K
 kk_2_3_1      1.6     # Lower value of GCE K
 
 pr_2_2        0.0703  # Production value for second isotope
-kk_2_1_2      2.0     # Upper value of GCE K.
-kk_2_2_2      1.4     # Middle value of GCE K
-kk_2_3_2      1.2     # Lower value of GCE K
+kk_2_1_2      1.8     # Upper value of GCE K
+kk_2_2_2      1.2     # Middle value of GCE K
+kk_2_3_2      1.1     # Lower value of GCE K
 
 label_ann_2   MR SN (DZ10 + ABLA07)  # Annotation in panel
 
 # Plot-3 values
 pr_3_1        1.1996  # Production value for first isotope
-kk_3_1_1      5.7     # Upper value of GCE K.
+kk_3_1_1      5.7     # Upper value of GCE K
 kk_3_2_1      2.3     # Middle value of GCE K
 kk_3_3_1      1.6     # Lower value of GCE K
 
 pr_3_2        0.1033  # Production value for second isotope
-kk_3_1_2      2.0     # Upper value of GCE K.
-kk_3_2_2      1.4     # Middle value of GCE K
-kk_3_3_2      1.2     # Lower value of GCE K
+kk_3_1_2      1.8     # Upper value of GCE K
+kk_3_2_2      1.2     # Middle value of GCE K
+kk_3_3_2      1.1     # Lower value of GCE K
 
 label_ann_3   Disk 1  # Annotation in panel
