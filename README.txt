@@ -19,7 +19,6 @@ t_gal       8500    # Galaxy age in Myr
 delt0       70      # Starting value of delta in Myr
 deltlast    930     # Final value of delta in Myr
 step        10      # Step of the delta calculation in Myr
-tau_monte   1       # Should we use Monte Carlo at all? Supported: 1 (on), 0 (off)
 
 # ---------------------------------------
 
@@ -47,6 +46,9 @@ label_2     Using $^{247}$Cm/$^{235}$U  # Label for plot line
 # Plots input
 n_plots     3         # How many plots to make
 font_size   14        # Font size
+ylow        90        # Lowest y value to plot
+yhigh       260       # Highest y value to plot
+ystep       25        # Step for y ticks
 xlabel      Recurrence time between $r$-process events [Myr]
 ylabel      Time since the last $r$-process event [Myr]
 

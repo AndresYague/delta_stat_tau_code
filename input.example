@@ -35,6 +35,9 @@ label_2     $^{182}$Hf/$^{180}$Hf  # Label for plot line
 # Plots input
 n_plots     3         # How many plots to make
 font_size   16.5      # Font size
+ylow        100       # Lowest y value to plot
+yhigh       230       # Highest y value to plot
+ystep       20        # Step for y ticks
 xlabel      Recurrence time between $s$-process events [Myr]
 ylabel      Time $\Delta t_\mathrm{LE}$ since the last $s$-process event [Myr]
 

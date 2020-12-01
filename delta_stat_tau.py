@@ -50,8 +50,15 @@ def get_sept(deltas, pr, kk, tau, ESS, t_gal, ref = "stable"):
     for delta in deltas:
         if ref == "stable":
             mm = pr * delta / t_gal * kk
-        elif ref == "u235":
-            mm = pr * kk * (1 - np.exp(-delta / 1009))
+        else:
+            try:
+                ref = float(ref)
+            except ValueError:
+                print("Ref must be either stable or a mean life")
+            except:
+                raise
+
+            mm = pr * kk * (1 - np.exp(-delta / ref))
 
         septs = -np.log(ESS/mm) * tau
 
@@ -81,8 +88,6 @@ t_gal = inpt_dict["t_gal"]
 
 n_isotopes = inpt_dict["n_isotopes"]
 
-tau_monte_carlo = inpt_dict["tau_monte"]
-
 ESS_isot = []; tau_isot = []
 for ni in range(n_isotopes):
 
@@ -92,17 +97,15 @@ for ni in range(n_isotopes):
     sig_ESS_isot = inpt_dict["std" + string]
     ESS_isot.append(np.random.normal(avg_ESS_isot, sig_ESS_isot,
                                      size = n_draws))
+
     # Tau values per isotope
-    if tau_monte_carlo == 1:
-        string = "_tau_{}".format(ni + 1)
-        avg_tau_isot = inpt_dict["avg" + string]
-        sig_tau_isot = inpt_dict["std" + string]
-        tau_isot.append(np.random.normal(avg_tau_isot, sig_tau_isot,
-                                        size = n_draws))
-    elif tau_monte_carlo == 0:
-        string = "_tau_{}".format(ni + 1)
-        avg_tau_isot = inpt_dict["avg" + string]
-        tau_isot.append(avg_tau_isot)
+    string = "_tau_{}".format(ni + 1)
+    avg_tau_isot = inpt_dict["avg" + string]
+    sig_tau_isot = inpt_dict["std" + string]
+
+    # Randomly sample a normal distribution
+    tau_isot.append(np.random.normal(avg_tau_isot, sig_tau_isot,
+                                    size = n_draws))
 
 # Parameters for deltas array
 delt0 = inpt_dict["delt0"]
@@ -114,8 +117,9 @@ deltas = np.arange(delt0, deltlast + 1, step)
 
 # Plot input
 xlim = [deltas[0], deltas[-1]]
-ylim = [100, 230]; step = 20
-yticks = np.arange(ylim[0], ylim[1], step)
+ylow, yhigh, ystep = inpt_dict["ylow"], inpt_dict["yhigh"], inpt_dict["ystep"]
+ylim = [ylow, yhigh]
+yticks = np.arange(ylow, yhigh, ystep)
 yticks = [x for x in yticks]
 
 #plotting...............................................................................................................
@@ -126,30 +130,31 @@ f.subplots_adjust(hspace = 0.)
 f.subplots_adjust(wspace = 0.)
 
 for pl in range(n_plots):
-    
+
     # Calculate
     for ni in range(n_isotopes):
         pr_is = inpt_dict["pr_{}_{}".format(pl + 1, ni + 1)]
         reference = inpt_dict["ref_{}".format(ni + 1)]
-        
+
         # Get the upper, middle, and lower K for this isotope
         kk = []
         for nk in range(3):
             kk.append(inpt_dict["kk_{}_{}_{}".format(pl + 1, nk + 1, ni + 1)])
         kk = np.array(kk)
-        
+
         # T_iso values
-        upper = get_sept(deltas, pr_is, kk[0], tau_isot[ni], ESS_isot[ni],
-                         t_gal, ref = reference)
-        middle = get_sept(deltas, pr_is, kk[1], tau_isot[ni], ESS_isot[ni],
-                          t_gal, ref = reference)
-        lower = get_sept(deltas, pr_is, kk[2], tau_isot[ni], ESS_isot[ni],
-                         t_gal, ref = reference)
+        tau = tau_isot[ni]
+        upper = get_sept(deltas, pr_is, kk[0], tau, ESS_isot[ni],
+                         t_gal, ref = reference)[1]
+        middle = get_sept(deltas, pr_is, kk[1], tau, ESS_isot[ni],
+                          t_gal, ref = reference)[0]
+        lower = get_sept(deltas, pr_is, kk[2], tau, ESS_isot[ni],
+                         t_gal, ref = reference)[2]
 
         # Plot
         label = inpt_dict["label_{}".format(ni + 1)]
-        axarr[pl].fill_between(deltas, upper[1], lower[2], alpha = 0.5)
-        axarr[pl].plot(deltas, middle[0], linestyle = '--',label = "Using " + label)
+        axarr[pl].fill_between(deltas, upper, lower, alpha = 0.5)
+        axarr[pl].plot(deltas, middle, linestyle = '--',label = label)
         axarr[pl].set_xlim(xlim)
         axarr[pl].set_ylim(ylim)
         axarr[pl].set_yticks(yticks)
